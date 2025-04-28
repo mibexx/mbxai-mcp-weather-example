@@ -1,0 +1,39 @@
+[project]
+name = "mbxai_mcp_weather_example"
+version = "0.1.0"
+description = "An example for running an mcp server with MBX AI Orchestrator"
+authors = [{ name = "Mike Bertram", email = "contact@mibexx.de" }]
+readme = "README.md"
+packages = [
+    { include = "src" }
+]
+requires-python = ">=3.12,<3.13"
+license = "MIT"
+dependencies = [
+    "pydantic-settings>=2.8.0",
+    "pydantic>=2.10.6",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.27.1",
+    "python-dotenv>=1.0.0",
+    "openai>=1.66.0",
+    "mcp>=0.1.0",
+    ]
+
+[project.scripts]
+service = "src.mbxai_mcp_weather_example.api.run:main"
+
+[tool.hatch.build.targets.sdist]
+include = ["src"]
+
+[tool.hatch.build.targets.wheel]
+include = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+select = ["E", "F", "I"]
+

@@ -1,0 +1,19 @@
+apiVersion: mbxai.cloud/v1
+kind: MbxAiResource
+metadata:
+  name: "mbxai_mcp_weather_example"
+  namespace: mbxai-sandbox
+spec:
+  name: "MBXAI Mcp Weather Example"
+  repoUrl: "https://github.com/mibexx/mbxai_mcp_weather_example"
+  key: "mbxai_mcp_weather_example-key"
+  baseImage: "mibexx/mbxai-service:latest"
+  port: 5000
+  expose: false
+  runCommand: ["service"]
+  customEnvVars:
+    - "MBXAI_MCP_WEATHER_EXAMPLE_NAME": "MBXAI Mcp Weather Example"
+    - "MBXAI_MCP_WEATHER_EXAMPLE_LOG_LEVEL": "INFO"
+  customSecrets:
+    - "MBXAI_MCP_WEATHER_EXAMPLE_OPENROUTER_API_KEY": "your-openrouter-api-key"
+    - "MBXAI_MCP_WEATHER_EXAMPLE_OPENROUTER_BASE_URL": "https://openrouter.ai/api/v1"

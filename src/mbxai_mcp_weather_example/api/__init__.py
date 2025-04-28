@@ -1,0 +1,1 @@
+"""API module for MBXAI Mcp Weather Example.""" 

@@ -42,7 +42,7 @@ class ToolRequest(BaseModel):
 async def invoke_tool(tool_name: str, request: ToolRequest = Body(...)):
     """Invoke a specific MCP tool."""
     try:
-        result = await mcp_server.call_tool(tool_name, **request.parameters)
+        result = await mcp_server.call_tool(tool_name, arguments=request.parameters)
         return result
     except Exception as e:
         return {"error": f"Error invoking tool {tool_name}: {str(e)}"}

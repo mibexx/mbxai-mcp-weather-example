@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from mcp.server.fastmcp import FastMCP
 from ..config import get_config
 

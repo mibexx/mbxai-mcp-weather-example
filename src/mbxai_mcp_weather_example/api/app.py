@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Body
 from mcp.server.fastmcp import FastMCP
+from pydantic import BaseModel
+from typing import Any
 from ..config import get_config
 
 config = get_config()
@@ -30,14 +32,17 @@ async def get_tools():
     return tools
 
 
+class ToolRequest(BaseModel):
+    """Base model for tool requests."""
+
+    parameters: dict[str, Any] = {}
+
+
 @app.post("/tools/{tool_name}/invoke")
-async def invoke_tool(tool_name: str, body: dict = Body(...)):
+async def invoke_tool(tool_name: str, request: ToolRequest = Body(...)):
     """Invoke a specific MCP tool."""
-    # Use the call_tool() method to invoke the tool
     try:
-        # Extract parameters from the request body
-        parameters = body.get("parameters", body)
-        result = await mcp_server.call_tool(tool_name, **parameters)
+        result = await mcp_server.call_tool(tool_name, **request.parameters)
         return result
     except Exception as e:
         return {"error": f"Error invoking tool {tool_name}: {str(e)}"}

@@ -32,17 +32,11 @@ async def get_tools():
     return tools
 
 
-class ToolRequest(BaseModel):
-    """Base model for tool requests."""
-
-    parameters: dict[str, Any] = {}
-
-
 @app.post("/tools/{tool_name}/invoke")
-async def invoke_tool(tool_name: str, request: ToolRequest = Body(...)):
+async def invoke_tool(tool_name: str, arguments: dict[str, Any] = Body(...)):
     """Invoke a specific MCP tool."""
     try:
-        result = await mcp_server.call_tool(tool_name, arguments=request.parameters)
+        result = await mcp_server.call_tool(tool_name, arguments=arguments)
         return result
     except Exception as e:
         return {"error": f"Error invoking tool {tool_name}: {str(e)}"}
